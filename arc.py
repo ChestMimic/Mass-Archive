@@ -33,8 +33,7 @@ def getSourceDirs(targetRoot = None):
 	targetDirs = []											#Initialize list
 	if(targetRoot != None):									#User specifies files are located elsewhere
 		print("Attempting CD to " + targetRoot)				#Currently can do nothing
-		#TODO: Finish Attempt CD subroutine
-		print("CD failed. Building archives in place.")
+		os.chdir(targetRoot)
 	allLocalFiles = os.listdir()							#Get all local files
 	for f in allLocalFiles:									#Loop through file names
 		if os.path.isdir(f):								#If a file is a directory
