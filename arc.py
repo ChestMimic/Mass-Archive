@@ -3,6 +3,10 @@
 import sys
 import os		#Directory Management
 import zipfile	#File compression
+import getopt	#Argument handling
+
+def usage():
+	print("python arc.py src=sourcePath dst=destinationPath")
 
 def subZip(zf, sourceDir):									#Attempt to add all subfiles 
 	allLocalFiles = os.listdir(sourceDir)					#Get all local files
@@ -37,14 +41,32 @@ def getSourceDirs(targetRoot = None):
 			targetDirs.append(f)							#Add directory to return list
 	return targetDirs										#RETURNS: list of strings, directory names
 
-def main():													#Run version check and execute script if valid
+def main(argv):													#Run version check and execute script if valid
 	if(sys.version_info.major < 3):							#Shebang line not read or Py3 not available on local PC
 		sys.stdout.write("Please use Python 3 or above.")	#Inform user of error
+		usage()
 		return -1											#RETURNS: -1
-	lst = getSourceDirs()
-	buildTo(lst, "..\\build")
+	
+	dstDir = None
+	srcDir = None
+	try:
+		opts, args = getopt.getopt(argv, "hs:d:", ["help","src=" "dst="])
+	except getopt.GetoptError:
+		usage()
+		sys.exit(2)
+	for opt, arg in opts:
+		if opt in ("-h", "--help"):
+			usage()
+			sys.exit()
+		elif opt in ("-d", "--dst"):
+			dstDir = arg
+		elif opt in ("-s", "--src"):
+			srcDir = arg
+
+	lst = getSourceDirs(srcDir)
+	buildTo(lst, dstDir)
 	print("Mass archiving complete.")
 	return 0												#RETURNS: 0
 
 if __name__ == "__main__":
-	main()
+	main(sys.argv[1:])
