@@ -17,6 +17,18 @@ def subZip(zf, sourceDir):
 		if os.path.isdir(sourceDir+ "\\" + f):				#If file added is a directory
 			subZip(zf, sourceDir + "\\" + f)				#Recursively add subdirectory files
 
+def zipDirectoryC(sourceDir, targetDir):
+	"""Begin archiving a given directroy
+		Keyword Arguments:
+		sourceDir -- String representation of the directory to be archived
+		targetDir -- String representation of the location to save the given directory
+	"""
+	sourceStr = targetDir + "\\" + sourceDir + ".zip"		#String representation of archive location
+	print("Archiving "+ sourceDir + " to " + sourceStr)
+	zf = zipfile.ZipFile( sourceStr, 'w', zipfile.ZIP_DEFLATED)					#Create Compressed Zip file
+	subZip(zf, sourceDir)									#Add all sub-files
+	zf.close()												#Close directory file
+
 def zipDirectory(sourceDir, targetDir):
 	"""Begin archiving a given directroy
 		Keyword Arguments:
@@ -29,17 +41,21 @@ def zipDirectory(sourceDir, targetDir):
 	subZip(zf, sourceDir)									#Add all sub-files
 	zf.close()												#Close directory file
 
-def buildTo(sourceList, targetDir = None):
+def buildTo(sourceList, targetDir = None, compression=None):
 	"""Confirms desired destination directory is available and initiates archiving on sourceList
 		Keyword Arguments:
 		sourceList -- List of all directories to be operated on
 		targetDir -- Destination to save all archive files. If None, save in cwd
+		compression -- User request to compress zip archives
 	"""
 	if(targetDir is None or not os.path.isdir(targetDir)):	#Expected target directory is inaccessible or undefined
 		print("Target directory " + targetDir + " inaccessible")
 		targetDir = ""										#Build locally
 	for f in sourceList:									#Iterate through list of directories
-		zipDirectory(f, targetDir)							#Create zip archive of each directory (uncompressed)
+		if(compression):
+			zipDirectoryC(f, targetDir)
+		else:
+			zipDirectory(f, targetDir)							#Create zip archive of each directory (uncompressed)
 
 def getSourceDirs(targetRoot = None):
 	"""Get all directories in a given destination. 
@@ -71,7 +87,7 @@ def main(argv):												#Run version check and execute script if valid
 	parser = argparse.ArgumentParser(description="Create ZIP archives of all directories in a given folder")
 	parser.add_argument("dest", help="Destination of generated archives")
 	parser.add_argument("--src", "-s", help="Location of folders to be archived (defaults to current working directory).")
-	#parser.add_argument("-c", "--compress", help="Compress generated archives[NOT IMPLEMENTED]", action="store_true")
+	parser.add_argument("-c", "--compress", help="Compress generated archives", action="store_true")
 	args = parser.parse_args()
 
 	lst = getSourceDirs(args.src)							#Get list of directories
