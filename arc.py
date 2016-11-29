@@ -3,7 +3,8 @@
 import sys
 import os		#Directory Management
 import zipfile	#File compression
-import getopt	#Argument handling
+#import getopt	#Argument handling
+import argparse	#Argument Handling
 
 def usage():
 	print("python arc.py src=sourcePath dst=destinationPath")
@@ -40,7 +41,7 @@ def getSourceDirs(targetRoot = None):
 			targetDirs.append(f)							#Add directory to return list
 	return targetDirs										#RETURNS: list of strings, directory names
 
-def main(argv):													#Run version check and execute script if valid
+def main(argv):												#Run version check and execute script if valid
 	if(sys.version_info.major < 3):							#Shebang line not read or Py3 not available on local PC
 		sys.stdout.write("Please use Python 3 or above.")	#Inform user of error
 		usage()
@@ -48,6 +49,12 @@ def main(argv):													#Run version check and execute script if valid
 	
 	dstDir = None
 	srcDir = None
+
+	parser = argparse.ArgumentParser()
+	parser.add_argument("dest", help="Destination of generated archives")
+	parser.add_argument("-c", "--compress", help="Compress generated archives[NOT IMPLEMENTED]", action="store_true")
+	parser.parse_args()
+	'''
 	try:
 		opts, args = getopt.getopt(argv, "hs:d:", ["help","src=" "dst="])
 	except getopt.GetoptError:
@@ -61,11 +68,11 @@ def main(argv):													#Run version check and execute script if valid
 			dstDir = arg
 		elif opt in ("-s", "--src"):
 			srcDir = arg
-
-	lst = getSourceDirs(srcDir)
-	buildTo(lst, dstDir)
-	print("Mass archiving complete.")
+'''
+	#lst = getSourceDirs(srcDir)
+	#buildTo(lst, dstDir)
+	#print("Mass archiving complete.")
 	return 0												#RETURNS: 0
 
 if __name__ == "__main__":
-	main(sys.argv[1:])
+	main(sys.argv)
