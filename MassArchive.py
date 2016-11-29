@@ -29,7 +29,7 @@ def zipDirectoryC(sourceDir, targetDir):
 	subZip(zf, sourceDir)									#Add all sub-files
 	zf.close()												#Close directory file
 
-def zipDirectory(sourceDir, targetDir):
+def zipDirectory(sourceDir, targetDir, compression=False):
 	"""Begin archiving a given directroy
 		Keyword Arguments:
 		sourceDir -- String representation of the directory to be archived
@@ -37,11 +37,13 @@ def zipDirectory(sourceDir, targetDir):
 	"""
 	sourceStr = targetDir + "\\" + sourceDir + ".zip"		#String representation of archive location
 	print("Archiving "+ sourceDir + " to " + sourceStr)
-	zf = zipfile.ZipFile( sourceStr, 'w')					#Create Zip file
+	zf = zipfile.ZipFile( sourceStr, 'w', zipfile.ZIP_DEFLATED)	if compression else zipfile.ZipFile( sourceStr, 'w')
+	if(compression):
+		print("Compression is ON for " + sourceStr)
 	subZip(zf, sourceDir)									#Add all sub-files
 	zf.close()												#Close directory file
 
-def buildTo(sourceList, targetDir = None, compression=None):
+def buildTo(sourceList, targetDir = None, compression=False):
 	"""Confirms desired destination directory is available and initiates archiving on sourceList
 		Keyword Arguments:
 		sourceList -- List of all directories to be operated on
@@ -52,10 +54,7 @@ def buildTo(sourceList, targetDir = None, compression=None):
 		print("Target directory " + targetDir + " inaccessible")
 		targetDir = ""										#Build locally
 	for f in sourceList:									#Iterate through list of directories
-		if(compression):
-			zipDirectoryC(f, targetDir)
-		else:
-			zipDirectory(f, targetDir)							#Create zip archive of each directory (uncompressed)
+		zipDirectory(f, targetDir, compression)				#Create zip archive of each directory
 
 def getSourceDirs(targetRoot = None):
 	"""Get all directories in a given destination. 
@@ -91,7 +90,7 @@ def main(argv):												#Run version check and execute script if valid
 	args = parser.parse_args()
 
 	lst = getSourceDirs(args.src)							#Get list of directories
-	buildTo(lst, args.dest)									#Archive list to destination
+	buildTo(lst, args.dest, args.compress)					#Archive list to destination
 	print("Mass archiving complete.")
 	return 0												#RETURNS: 0
 
