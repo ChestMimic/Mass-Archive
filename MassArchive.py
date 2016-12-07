@@ -47,14 +47,9 @@ def buildTo(sourceList, targetDir = None, compression=False):
 def getSourceDirs(targetRoot = None):
 	"""Get all directories in a given destination. 
 	 	Keyword Arguments:
-	 	targetRoot -- String representation of target folder. If none, works on cwd
+	 	targetRoot -- String representation of target folder. If none, works "."
  	""" 
 	targetDirs = []											#Initialize list
-	'''
-	if(targetRoot != None):									#User specifies files are located elsewhere
-		print("Attempting CD to " + targetRoot)				#Currently can do nothing
-		os.chdir(targetRoot)
-	'''
 
 	for f in os.listdir(targetRoot):						#Loop through file names
 		folder = os.path.abspath(targetRoot) + "\\" + f
@@ -81,6 +76,7 @@ def main(argv):												#Run version check and execute script if valid
 	args = parser.parse_args()
 
 	lst = getSourceDirs(args.src)							#Get list of directories
+	lst.remove(os.path.abspath(args.dest))
 	buildTo(lst, args.dest, args.compress)					#Archive list to destination
 	print("Mass archiving complete.")
 	return 0												#RETURNS: 0
