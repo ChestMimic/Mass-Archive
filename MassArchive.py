@@ -76,7 +76,8 @@ def main(argv):												#Run version check and execute script if valid
 	args = parser.parse_args()
 
 	lst = getSourceDirs(args.src)							#Get list of directories
-	lst.remove(os.path.abspath(args.dest))
+	if os.path.abspath(args.dest) in lst:
+		lst.remove(os.path.abspath(args.dest))
 	buildTo(lst, args.dest, args.compress)					#Archive list to destination
 	print("Mass archiving complete.")
 	return 0												#RETURNS: 0
