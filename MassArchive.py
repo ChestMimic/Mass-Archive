@@ -23,7 +23,7 @@ def zipDirectory(sourceDir, targetDir, compression=False):
 		sourceDir -- String representation of the directory to be archived
 		targetDir -- String representation of the location to save the given directory
 	"""
-	sourceStr = targetDir + "\\" + sourceDir + ".zip"		#String representation of archive location
+	sourceStr = targetDir + "\\" + os.path.basename(sourceDir) + ".zip"		#String representation of archive location
 	print("Archiving "+ sourceDir + " to " + sourceStr)
 	zf = zipfile.ZipFile( sourceStr, 'w', zipfile.ZIP_DEFLATED)	if compression else zipfile.ZipFile( sourceStr, 'w')
 	if(compression):
@@ -50,13 +50,17 @@ def getSourceDirs(targetRoot = None):
 	 	targetRoot -- String representation of target folder. If none, works on cwd
  	""" 
 	targetDirs = []											#Initialize list
+	'''
 	if(targetRoot != None):									#User specifies files are located elsewhere
 		print("Attempting CD to " + targetRoot)				#Currently can do nothing
 		os.chdir(targetRoot)
-	allLocalFiles = os.listdir()							#Get all local files
-	for f in allLocalFiles:									#Loop through file names
-		if os.path.isdir(f):								#If a file is a directory
-			targetDirs.append(f)							#Add directory to return list
+	'''
+
+	for f in os.listdir(targetRoot):						#Loop through file names
+		folder = os.path.abspath(targetRoot) + "\\" + f
+		print(os.path.abspath(folder))
+		if os.path.isdir(folder):	
+			targetDirs.append(folder)						#Add directory to return list
 	return targetDirs										#RETURNS: list of strings, directory names
 
 #############################################################
