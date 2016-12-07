@@ -17,25 +17,13 @@ def subZip(zf, sourceDir):
 		if os.path.isdir(sourceDir+ "\\" + f):				#If file added is a directory
 			subZip(zf, sourceDir + "\\" + f)				#Recursively add subdirectory files
 
-def zipDirectoryC(sourceDir, targetDir):
-	"""Begin archiving a given directroy
-		Keyword Arguments:
-		sourceDir -- String representation of the directory to be archived
-		targetDir -- String representation of the location to save the given directory
-	"""
-	sourceStr = targetDir + "\\" + sourceDir + ".zip"		#String representation of archive location
-	print("Archiving "+ sourceDir + " to " + sourceStr)
-	zf = zipfile.ZipFile( sourceStr, 'w', zipfile.ZIP_DEFLATED)					#Create Compressed Zip file
-	subZip(zf, sourceDir)									#Add all sub-files
-	zf.close()												#Close directory file
-
 def zipDirectory(sourceDir, targetDir, compression=False):
 	"""Begin archiving a given directroy
 		Keyword Arguments:
 		sourceDir -- String representation of the directory to be archived
 		targetDir -- String representation of the location to save the given directory
 	"""
-	sourceStr = targetDir + "\\" + sourceDir + ".zip"		#String representation of archive location
+	sourceStr = targetDir + "\\" + os.path.basename(sourceDir) + ".zip"		#String representation of archive location
 	print("Archiving "+ sourceDir + " to " + sourceStr)
 	zf = zipfile.ZipFile( sourceStr, 'w', zipfile.ZIP_DEFLATED)	if compression else zipfile.ZipFile( sourceStr, 'w')
 	if(compression):
@@ -59,16 +47,15 @@ def buildTo(sourceList, targetDir = None, compression=False):
 def getSourceDirs(targetRoot = None):
 	"""Get all directories in a given destination. 
 	 	Keyword Arguments:
-	 	targetRoot -- String representation of target folder. If none, works on cwd
+	 	targetRoot -- String representation of target folder. If none, works "."
  	""" 
 	targetDirs = []											#Initialize list
-	if(targetRoot != None):									#User specifies files are located elsewhere
-		print("Attempting CD to " + targetRoot)				#Currently can do nothing
-		os.chdir(targetRoot)
-	allLocalFiles = os.listdir()							#Get all local files
-	for f in allLocalFiles:									#Loop through file names
-		if os.path.isdir(f):								#If a file is a directory
-			targetDirs.append(f)							#Add directory to return list
+
+	for f in os.listdir(targetRoot):						#Loop through file names
+		folder = os.path.abspath(targetRoot) + "\\" + f
+		print(os.path.abspath(folder))
+		if os.path.isdir(folder):	
+			targetDirs.append(folder)						#Add directory to return list
 	return targetDirs										#RETURNS: list of strings, directory names
 
 #############################################################
@@ -80,7 +67,6 @@ def getSourceDirs(targetRoot = None):
 def main(argv):												#Run version check and execute script if valid
 	if(sys.version_info.major < 3):							#Shebang line not read or Py3 not available on local PC
 		sys.stdout.write("Please use Python 3 or above.")	#Inform user of error
-		usage()
 		return -1											#RETURNS: -1
 	
 	parser = argparse.ArgumentParser(description="Create ZIP archives of all directories in a given folder")
@@ -90,6 +76,7 @@ def main(argv):												#Run version check and execute script if valid
 	args = parser.parse_args()
 
 	lst = getSourceDirs(args.src)							#Get list of directories
+	lst.remove(os.path.abspath(args.dest))
 	buildTo(lst, args.dest, args.compress)					#Archive list to destination
 	print("Mass archiving complete.")
 	return 0												#RETURNS: 0
