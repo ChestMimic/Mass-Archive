@@ -17,18 +17,6 @@ def subZip(zf, sourceDir):
 		if os.path.isdir(sourceDir+ "\\" + f):				#If file added is a directory
 			subZip(zf, sourceDir + "\\" + f)				#Recursively add subdirectory files
 
-def zipDirectoryC(sourceDir, targetDir):
-	"""Begin archiving a given directroy
-		Keyword Arguments:
-		sourceDir -- String representation of the directory to be archived
-		targetDir -- String representation of the location to save the given directory
-	"""
-	sourceStr = targetDir + "\\" + sourceDir + ".zip"		#String representation of archive location
-	print("Archiving "+ sourceDir + " to " + sourceStr)
-	zf = zipfile.ZipFile( sourceStr, 'w', zipfile.ZIP_DEFLATED)					#Create Compressed Zip file
-	subZip(zf, sourceDir)									#Add all sub-files
-	zf.close()												#Close directory file
-
 def zipDirectory(sourceDir, targetDir, compression=False):
 	"""Begin archiving a given directroy
 		Keyword Arguments:
@@ -80,7 +68,6 @@ def getSourceDirs(targetRoot = None):
 def main(argv):												#Run version check and execute script if valid
 	if(sys.version_info.major < 3):							#Shebang line not read or Py3 not available on local PC
 		sys.stdout.write("Please use Python 3 or above.")	#Inform user of error
-		usage()
 		return -1											#RETURNS: -1
 	
 	parser = argparse.ArgumentParser(description="Create ZIP archives of all directories in a given folder")
