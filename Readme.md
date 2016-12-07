@@ -1,27 +1,27 @@
 Mass Archive Tool
-Version 1.0
+=================
+Version 1.1
+-----------
 (c) Mark Fitzgibbon 2016
 
-+-----------+
-|Description|
-+-----------+
+Description
+-----------
 Python based tool for archiving of multiple directories.
 
-+--------+
-|Download|
-+--------+
-User can pull, fork, or download tool from 
-https://github.com/ibbolia/Mass-Archive
+Download
+--------
+User can pull, fork, or download tool from the [Mass-Archive Repository](https://github.com/ibbolia/Mass-Archive)
 
-+------------+
-|Requirements|
-+------------+
+
+Requirements
+------------
 Mass Archive currently requires Python 3.x installed (Tested with Py3.5)
 Compression feature requires zlib module to be installed
 
-+-----+
-|Usage|
-+-----+
+
+Usage
+-----
+'''
 usage: MassArchive.py [-h] [--src SRC] [-c] dest
 
 Create ZIP archives of all directories in a given folder
@@ -34,10 +34,10 @@ optional arguments:
   --src SRC, -s SRC  Location of folders to be archived (defaults to current
                      working directory).
   -c, --compress     Compress generated archives
+'''
 
-+-------+
-|Contact|
-+-------+
-Github: https://github.com/ibbolia
+Contact
+-------
+[Github](https://github.com/ibbolia)
 Twitter: @ibbolia
 Gmail: mwfitzgibbon
