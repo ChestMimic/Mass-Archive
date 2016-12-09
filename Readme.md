@@ -1,6 +1,6 @@
 Mass Archive Tool
 =================
-Version 1.1
+Version 1.2
 -----------
 (c) Mark Fitzgibbon 2016
 
@@ -34,6 +34,7 @@ optional arguments:
   --src SRC, -s SRC  Location of folders to be archived (defaults to current
                      working directory).
   -c, --compress     Compress generated archives
+  -g, --generate	 Generate destination directory if not present
 '''
 
 Contact

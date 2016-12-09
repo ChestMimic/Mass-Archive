@@ -1,6 +1,13 @@
 #Change Log
 All notable changes will be tracked in this file
 
+##[1.2] - 2016-12-09
+###Added
+- "generate"/"g" flag functionality
+
+###Changed
+- Comment structure makes code less disorganized looking
+
 ##[1.1] - 2016-12-07
 ###Added
 - This changelog 
