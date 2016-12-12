@@ -26,6 +26,7 @@ Usage
 Create ZIP archives of all directories in a given folder
 
 Positional arguments:
+
 Argument|Description
 -------|-------
 dest|Destination of generated archives
