@@ -21,21 +21,23 @@ Compression feature requires zlib module to be installed
 
 Usage
 -----
-'''
-usage: MassArchive.py [-h] [--src SRC] [-c] dest
+    MassArchive.py [-h] [--src SRC] [-c] [-g] dest
 
 Create ZIP archives of all directories in a given folder
 
-positional arguments:
-  dest               Destination of generated archives
+Positional arguments:
+Argument|Description
+-------|-------
+dest|Destination of generated archives
 
-optional arguments:
-  -h, --help         show this help message and exit
-  --src SRC, -s SRC  Location of folders to be archived (defaults to current
-                     working directory).
-  -c, --compress     Compress generated archives
-  -g, --generate	 Generate destination directory if not present
-'''
+Optional arguments:
+
+Argument|Description
+-------|-------
+-h, --help|Show help message and exit
+--src SRC, -s SRC|Location of folders to be archived (defaults to current working directory).
+-c, --compress|Compress generated archives
+-g, --generate|Generate destination directory if not present
 
 Contact
 -------
