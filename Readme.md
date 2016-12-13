@@ -1,6 +1,6 @@
 Mass Archive Tool
 =================
-Version 1.2
+Version 0.2
 -----------
 (c) Mark Fitzgibbon 2016
 
