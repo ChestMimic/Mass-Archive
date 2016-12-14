@@ -61,11 +61,11 @@ def getSourceDirs(targetRoot = None):
 	 	Keyword Arguments:
 	 	targetRoot -- String representation of target folder. If none, works "."
  	""" 
-	targetDirs = []											
-	for f in os.listdir(targetRoot):						
-		folder = os.path.abspath(targetRoot) + "\\" + f
+	targetDirs = []
+	for f in os.listdir(targetRoot):
+		folder = f#os.path.abspath(targetRoot) + "\\" + f
 		print(os.path.abspath(folder))
-		if os.path.isdir(folder):	
+		if os.path.isdir(folder):
 			targetDirs.append(folder)						
 	return targetDirs
 	#RETURNS: list of strings, directory names
@@ -88,7 +88,9 @@ def main(argv):												#Run version check and execute script if valid
 	parser.add_argument("-g", "--generate", help="Generate destination directory if not present.", action = "store_true")
 	args = parser.parse_args()
 
-	lst = getSourceDirs(args.src)							#Get list of directories
+	os.chdir(args.src)
+
+	lst = getSourceDirs()							#Get list of directories
 	if os.path.abspath(args.dest) in lst:
 		lst.remove(os.path.abspath(args.dest))
 	buildTo(lst, args.dest, args.compress, args.generate)#Archive list to destination

@@ -1,14 +1,23 @@
 #Change Log
 All notable changes will be tracked in this file
 
-##[1.2] - 2016-12-09
+##[Unreleased]
+###Changed
+- Now changes directory within program
+- Zip archives filter out common root, still has top level folder (to be fixed)
+
+###Known issues 
+- Bad handling when trying to archive a zip file into another zip file
+- Archive hanging on self reference (repeat of #1)
+
+##[0.2] - 2016-12-09
 ###Added
 - "generate"/"g" flag functionality
 
 ###Changed
 - Comment structure makes code less disorganized looking
 
-##[1.1] - 2016-12-07
+##[0.1] - 2016-12-07
 ###Added
 - This changelog 
 
