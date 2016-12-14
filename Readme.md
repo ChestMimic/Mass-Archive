@@ -1,6 +1,6 @@
 Mass Archive Tool
 =================
-Version 0.2
+Version 0.2.1
 -----------
 (c) Mark Fitzgibbon 2016
 
@@ -39,6 +39,10 @@ Argument|Description
 --src SRC, -s SRC|Location of folders to be archived (defaults to current working directory).
 -c, --compress|Compress generated archives
 -g, --generate|Generate destination directory if not present
+
+Known Issues
+------------
+Tool has odd behavior when attempting to archive an already existing Zip (or similar) file
 
 Contact
 -------

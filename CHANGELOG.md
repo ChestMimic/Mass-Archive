@@ -1,18 +1,18 @@
 #Change Log
 All notable changes will be tracked in this file
 
-##[Unreleased]
+##[0.2.1] - 2016-12-14
 ###Changed
-- Now changes directory within program
-- Zip archives filter out common root, still has top level folder (to be fixed)
--Will ignore any directory that is in both source and destination locations
+- Now changes directory within program (original behavior)
+- Zip archives filter out common root, still has top level folder (Fixed #5)
+- Will ignore any directory that is in both source and destination locations (Again, fixed #1)
 
 ###Known issues 
 - Bad handling when trying to archive a zip file into another zip file
 
 ##[0.2] - 2016-12-09
 ###Added
-- "generate"/"g" flag functionality
+- "generate"/"g" flag functionality (Fixed #4)
 
 ###Changed
 - Comment structure makes code less disorganized looking

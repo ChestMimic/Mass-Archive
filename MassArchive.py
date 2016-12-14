@@ -15,7 +15,7 @@ def subZip(zf, sourceDir):
 	allLocalFiles = os.listdir(sourceDir)					
 	#Loop through file names
 	for f in allLocalFiles:
-		#Add a file to archive									
+		#Add a file to archive
 		zf.write(sourceDir + "\\" + f)						
 		#If file added is a directory Recursively add subdirectory files
 		if os.path.isdir(sourceDir+ "\\" + f):				
