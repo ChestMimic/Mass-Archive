@@ -91,8 +91,9 @@ def main(argv):												#Run version check and execute script if valid
 	os.chdir(args.src)
 
 	lst = getSourceDirs()							#Get list of directories
-	if os.path.abspath(args.dest) in lst:
-		lst.remove(os.path.abspath(args.dest))
+	#Opted for less detsructive version as temporary solution to issue #1
+	if args.dest in lst:
+		lst.remove(args.dest)
 	buildTo(lst, args.dest, args.compress, args.generate)#Archive list to destination
 	print("Mass archiving complete.")
 	return 0												#RETURNS: 0

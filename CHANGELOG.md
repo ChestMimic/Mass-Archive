@@ -5,10 +5,10 @@ All notable changes will be tracked in this file
 ###Changed
 - Now changes directory within program
 - Zip archives filter out common root, still has top level folder (to be fixed)
+-Will ignore any directory that is in both source and destination locations
 
 ###Known issues 
 - Bad handling when trying to archive a zip file into another zip file
-- Archive hanging on self reference (repeat of #1)
 
 ##[0.2] - 2016-12-09
 ###Added

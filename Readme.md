@@ -43,5 +43,7 @@ Argument|Description
 Contact
 -------
 [Github](https://github.com/ibbolia)
-Twitter: @ibbolia
+
+Twitter: [@ibbolia](https://twitter.com/[username])
+
 Gmail: mwfitzgibbon
