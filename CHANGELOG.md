@@ -1,6 +1,10 @@
 #Change Log
 All notable changes will be tracked in this file
 
+##[Unreleased]
+###Changed
+- Ability to ignore hidden files (begins with '.')
+
 ##[0.2.1] - 2016-12-14
 ###Changed
 - Now changes directory within program (original behavior)

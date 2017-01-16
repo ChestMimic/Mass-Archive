@@ -43,6 +43,7 @@ def buildTo(sourceList, targetDir = None, compression=False, gen = False):
 		targetDir -- Destination to save all archive files. If None, save in cwd
 		compression -- User request to compress zip archives
 	"""
+	print(targetDir)
 	#If expected target directory is inaccessible or undefined
 	if(targetDir is None or not os.path.isdir(targetDir)):	
 		print("Target directory " + targetDir + " inaccessible")
@@ -64,9 +65,10 @@ def getSourceDirs(targetRoot = None):
 	targetDirs = []
 	for f in os.listdir(targetRoot):
 		folder = f#os.path.abspath(targetRoot) + "\\" + f
-		print(os.path.abspath(folder))
+		#print(os.path.abspath(folder))
 		if os.path.isdir(folder):
-			targetDirs.append(folder)						
+			if not f.startswith("."): #Ignore hidden files
+				targetDirs.append(folder)						
 	return targetDirs
 	#RETURNS: list of strings, directory names
 
